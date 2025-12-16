@@ -1,6 +1,6 @@
 import express, { Request, Response} from "express";
 import 'dotenv/config';
-import pool from "./models/database.ts"; 
+import pool from "../server/config/database.ts"; 
 // import { Pool, QueryResult } from 'pg';
 import cors from "cors"
 // import apiRouter from'./routes/api';

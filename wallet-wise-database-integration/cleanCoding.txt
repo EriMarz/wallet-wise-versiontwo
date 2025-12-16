@@ -75,6 +75,7 @@ modularize App.tsx by compartmentalizing FirstPage into its own component... hom
 🪲bugs🪲:
 -use npm run dev -- --host to allow liveshare participants access to frontend server (guessing this would also work for backend if similar issue arrises)
 -10k changes git status (tells us current status of things that are ready for our git commits) and echo "node_modules/" >> .gitignore (the echo double checks that all of our git ignore dependencies were being referenced)
+-in restrucuturing our folders, we did not fix the imports for backend and frontend servers. This needed to be adjusted in the index.html file
 
 
 
