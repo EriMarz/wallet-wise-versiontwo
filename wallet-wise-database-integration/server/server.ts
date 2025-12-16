@@ -1,9 +1,9 @@
 import express, { Request, Response} from "express";
 import 'dotenv/config';
-import pool from "./server/models/database.ts"; 
+import pool from "./models/database.ts"; 
 // import { Pool, QueryResult } from 'pg';
 import cors from "cors"
-import apiRouter from'./routes/api';
+// import apiRouter from'./routes/api';
 
 const app = express();
 const PORT = 3000; // 5432 this is the port in .env
@@ -11,15 +11,18 @@ const PORT = 3000; // 5432 this is the port in .env
 app.use(cors())
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
-app.use("/api", apiRouter);
+ const apiRouter = express.Router();
+ app.use("/api", apiRouter);
 
-// test server is working by creating an endpoint "test" that asks the db to return the number one ... should work even without any specific tables yet
-app.get("/test", async (req: Response, res: Response) => {
+
+// test server is working by creating an endpoint "test" that asks the db to return the first element. This should also work to test the connection even without any specific tables
+app.get("/test", async (req: Request, res: Response) => {
     try{
         const result = await pool.query(
             'SELECT * FROM "Adventures"'
         );
-        // destructure / stringify / etc BEFORE sending it to the frontend -> data you want is on result.rows[0]
+        //stringify BEFORE sending it to the frontend, and then the frontend will deconstruct the keys
+        // this test shows the data on result.rows[0]
         res.send(`Yay! Database is connected ${JSON.stringify(result.rows[0])}`);
         console.log("Result from DB: ", result);
     } catch (err) {
@@ -29,13 +32,11 @@ app.get("/test", async (req: Response, res: Response) => {
 });
 
 
-//loop through the results rows to populate the adventure list 
+//loop through the results rows to populate the adventure list (frontend)
 //to get the first page rendering the all adventure data, I think we'd use app.get("api/adventures", (req,res)=> {SQL syntax...})
 //app.get("/adventures", async (req: Request, res: Response) =>  {
 
 //}
-
-
 
 //create posts: start new adventure button and Add expense button
 
