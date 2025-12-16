@@ -9,11 +9,13 @@ interface ButtonProps extends ComponentProps<"button"> {
     route: string;
 }
 export const Button = ({ name, isActive, variant, plusIcon, route, ...props }: ButtonProps) => {
-    // Insert Base Stylings for Tailwind CSS, Create Variants for active / inactive css
+    // Insert Base Stylings for Tailwind CSS 
+    // Create Variants for active / inactive css
     // baseStyle / isActiveStyle / inactiveStyle
-     let baseStyle = "px-4 py-2 rounded-md font-semibold transition-colors duration-300 ";
-     let activeStyle = "bg-blue-500 text-white hover:bg-blue-600 ";
-     let inactiveStyle = "bg-gray-200 text-gray-700 hover:bg-gray-300 ";
+     const baseStyle = "px-4 py-2 rounded-md font-semibold transition-colors duration-300 ";
+     const activeStyle = "bg-blue-500 text-white hover:bg-blue-600 ";
+     const inactiveStyle = "bg-gray-200 text-gray-700 hover:bg-gray-300 ";
+     
     return (
         <Link to={route}>
         <button className={baseStyle + (isActive ? activeStyle : inactiveStyle)} {...props} >

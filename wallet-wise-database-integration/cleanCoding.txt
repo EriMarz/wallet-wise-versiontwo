@@ -63,13 +63,14 @@ ROOT:
         
 
 
-
+What's this mean (replace in the router line):           {/* <Route index element={<Navigate to="expenses" replace />} /> */}
 
 Frontend 
-CreateAdventure adjust to createAdventure
-groupTripDetails adjust to groupAdventureDetails
-modularize App.tsx by compartmentalizing FirstPage into its own component... homePage for cleaner code
+ ✅CreateAdventure adjust to createAdventure
+ ✅groupTripDetails adjust to adventureDetails
+ ✅modularize App.tsx by compartmentalizing FirstPage into its own component... homePage for cleaner code
 
+Not sure what variant does in Buttons.tsx - need to create a comment / clarify
 
 
 🪲bugs🪲:

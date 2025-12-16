@@ -1,10 +1,10 @@
-import { Button } from "../components/functional components/Buttons";
+import { Button } from "../components/functional/Buttons";
 import { ChevronLeft, Plus } from "lucide-react";
 import { Link, Outlet } from "react-router-dom";
 
 //do we also have to think about state here? ... or are we fine with hardcoding info?
 
-export const GroupTripDetails = () => {
+export const AdventureDetails = () => {
   return (
     <div>
       <div className="relative w-full text-xl ">

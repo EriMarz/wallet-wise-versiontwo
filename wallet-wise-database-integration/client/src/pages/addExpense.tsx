@@ -1,8 +1,9 @@
 import { ChevronLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Button } from "../components/functional components/Buttons";
+import { Button } from "../components/functional/Buttons";
 
 export const AddExpense = () => {
+  //Karina adjusting the add expense bits, 
   return (
     <div className="flex flex-col gap-2">
       <div className="relative w-full text-xl ">

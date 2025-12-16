@@ -4,7 +4,7 @@ export const SearchGroup = () => {
     return (
         <div>
             <Search />
-            <p>Group Trips </p>
+            <p>Adventures </p>
         </div>
     )
 }

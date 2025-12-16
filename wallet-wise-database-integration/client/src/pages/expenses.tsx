@@ -1,5 +1,5 @@
 import React from "react";
-import { List } from "../components/layouts components/List";
+import { List } from "../components/layouts/List";
 export const Expenses = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-3 pb-20 pt-7">

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button } from "../components/functional components/Buttons";
+import { Button } from "../components/functional/Buttons";
 import { ChevronLeft, Plus } from "lucide-react";
 import { useState } from "react";
 
