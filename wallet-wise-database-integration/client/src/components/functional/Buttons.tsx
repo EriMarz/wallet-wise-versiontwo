@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 interface ButtonProps extends ComponentProps<"button"> {
     name: string;
     isActive: boolean;
-    variant: "hey" | "ho"; //this might be duplicative
+    variant?: "hey" | "ho"; //this might be duplicative
     plusIcon?: ReactNode;
     route: string;
 }
