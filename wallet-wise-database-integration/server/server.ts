@@ -55,7 +55,6 @@ app.post("/api/adventure", async (req: Request, res: Response) => {
 })
 
 
-
 //Create gets: for adventure page, adventure detail (expenses and balances sections)
 
 
@@ -72,3 +71,20 @@ app.listen(PORT, ()=>{ console.log(`Listening on port ${PORT}...`); });
 
 
 export default app;
+
+
+//404 error things pasted from Lawrenzo:
+// app.use((req, res) =>
+//     res.status(404).send("404 not found")
+//   );
+
+// app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+//     const defaultErr = {
+//       log: 'Express error handler caught unknown middleware error',
+//       status: 500,
+//       message: { err: 'An error occurred' },
+//     };
+//     const errorObj = Object.assign({}, defaultErr, err);
+//     console.log(errorObj.log);
+//     return res.status(errorObj.status).json(errorObj.message);
+//   });

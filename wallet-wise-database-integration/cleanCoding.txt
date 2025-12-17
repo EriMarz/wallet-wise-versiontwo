@@ -98,3 +98,14 @@ Not sure what variant does in Buttons.tsx - need to create a comment / clarify
 // };
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+~Testing Notes~
+Because of react components and the way our frontend is set up, we need to install more dependencies than the standard npm install -D vitest. Below is what was added in the install and what they do. 
+
+jsdom (or happy-dom): This package is essential because Vitest runs in a Node.js environment by default, which does not have a browser's Document Object Model (DOM). jsdom (or the faster happy-dom) simulates the browser DOM, allowing your components to render and function correctly during tests.
+
+@testing-library/react: This provides the core utilities for rendering React components in your tests, querying the DOM, and interacting with elements in a way that resembles how a user would.
+
+@testing-library/jest-dom (optional but recommended): This package offers a set of custom matchers (e.g., toBeInTheDocument(), toBeVisible()) that simplify assertions in your tests.
+
+@testing-library/user-event (optional): This library provides a more realistic simulation of user interactions (like typing into an input field or clicking a button) than simple event dispatches
