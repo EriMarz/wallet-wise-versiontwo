@@ -109,3 +109,10 @@ jsdom (or happy-dom): This package is essential because Vitest runs in a Node.js
 @testing-library/jest-dom (optional but recommended): This package offers a set of custom matchers (e.g., toBeInTheDocument(), toBeVisible()) that simplify assertions in your tests.
 
 @testing-library/user-event (optional): This library provides a more realistic simulation of user interactions (like typing into an input field or clicking a button) than simple event dispatches
+
+    // screen.debug();
+    // expect(1).toBe(1); //dummy test from Kim
+    // expect(screen.getByText("Test Button")).toBeInTheDocument();
+    //should pass tho bc we have line nine above rendering the button with that name... at least I'd think so .. oh i see
+
+    
