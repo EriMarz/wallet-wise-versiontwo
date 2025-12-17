@@ -1,16 +1,19 @@
 import { Pool } from 'pg';
 import type { QueryResult } from "pg"; 
 //makes it so that we import only type declarations ... pg is a package imported from Node.js PostgresSQL client library
+import { createClient } from '@supabase/supabase-js'; // create a single supabase client for interacting with the db
+import { supabaseUrl, supabaseKey, supabaseAnonKey, supabasePword, PORT } from './.env';
+const supabaseKey = process.env.supabaseKey;
 
-// const pool = new Pool({
-//   connectionString: "postgresql://postgres.fwchlqiodlltmbwefalq:expressjs@aws-0-us-west-2.pooler.supabase.com:5432/postgres",
-// ssl: { rejectUnauthorized: false },//
-// });
+const supabase = createClient<Database>(
+  process.env.supabaseUrl,
+  process.env.supabaseAnonKey
+)
 
 // Create a connection pool - this manages multiple database connections efficiently
 // A pool reuses connections instead of creating new ones for each query
 const pool = new Pool({
-  connectionString: "postgresql://postgres.fwchlqiodlltmbwefalq:expressjs@aws-0-us-west-2.pooler.supabase.com:5432/postgres",
+  connectionString: `postgresql://postgres.fwchlqiodlltmbwefalq:${supabasePword}@aws-0-us-west-2.pooler.supabase.com:${PORT}/postgres`,
   ssl: { rejectUnauthorized: false },
 });
 
@@ -38,8 +41,7 @@ export default {
   },
 };
 
-// export default pool;
-
+export default pool;
 
 //// We export an object that contains a property called query,
 // which is a function that returns the invocation of pool.query() after logging the query

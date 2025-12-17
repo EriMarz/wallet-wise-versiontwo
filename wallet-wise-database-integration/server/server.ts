@@ -1,4 +1,4 @@
-import express, { Request, Response} from "express";
+import express, { Request, Response, NextFunction} from "express";
 import 'dotenv/config';
 import pool from "../server/config/database.ts"; 
 // import { Pool, QueryResult } from 'pg';
@@ -13,7 +13,6 @@ app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
  const apiRouter = express.Router();
  app.use("/api", apiRouter);
-
 
 // test server is working by creating an endpoint "test" that asks the db to return the first element. This should also work to test the connection even without any specific tables
 app.get("/test", async (req: Request, res: Response) => {
@@ -31,15 +30,19 @@ app.get("/test", async (req: Request, res: Response) => {
     }
 });
 
-
 //loop through the results rows to populate the adventure list (frontend)
 //to get the first page rendering the all adventure data, I think we'd use app.get("api/adventures", (req,res)=> {SQL syntax...})
-//app.get("/adventures", async (req: Request, res: Response) =>  {
+app.get("/adventures", async (req: Request, res: Response) =>  {
+    try {
+        const result = await pool.query('SELECT * FROM "Adventures"');
+        res.status(200).json(result)
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(`Database error: ${err}`);
+    }
+});
 
-//}
-
-//create posts: start new adventure button and Add expense button
-
+// create posts: start new adventure button and Add expense button
 app.post("/api/adventure", async (req: Request, res: Response) => {
     try {
         const { name } = req.body;
@@ -54,24 +57,47 @@ app.post("/api/adventure", async (req: Request, res: Response) => {
     }
 })
 
-
 //Create gets: for adventure page, adventure detail (expenses and balances sections)
-
-
+app.get("/api/adventure", async (req: Request, res: Response) => {
+    try {
+        const { name } = req.body;
+        const result = await pool.query(
+            'READ FROM "Adventures" (name) VALUES ($1) RETURNING *',
+            [name]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(`Error creating adventure: ${err}`);
+    }
+})
 
 //400 error handler
+export const notFoundHandler = (req: Request, res: Response) => {
+  res.status(404).json({
+    error: 'Route not found',
+    path: req.path,
+  });
+};
 
+export const globalErrorHandler = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  console.error('Global error handler:', err);
 
-
-//global error handler 500
-
-
+//global error handler 500  
+  res.status(500).json({
+    error: 'Internal server error',
+    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong',
+  });
+};
 
 app.listen(PORT, ()=>{ console.log(`Listening on port ${PORT}...`); });
 
-
 export default app;
-
 
 //404 error things pasted from Lawrenzo:
 // app.use((req, res) =>
