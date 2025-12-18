@@ -32,7 +32,7 @@ app.get("/test", async (req: Request, res: Response) => {
 
 //loop through the results rows to populate the adventure list (frontend)
 //to get the first page rendering the all adventure data, I think we'd use app.get("api/adventures", (req,res)=> {SQL syntax...})
-app.get("/adventures", async (req: Request, res: Response) =>  {
+app.get("/api/adventures", async (req: Request, res: Response) =>  {
     try {
         const result = await pool.query('SELECT * FROM "Adventures"');
         res.status(200).json(result)
