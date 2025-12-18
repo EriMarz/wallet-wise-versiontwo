@@ -77,6 +77,9 @@ Not sure what variant does in Buttons.tsx - need to create a comment / clarify
 -use npm run dev -- --host to allow liveshare participants access to frontend server (guessing this would also work for backend if similar issue arrises)
 -10k changes git status (tells us current status of things that are ready for our git commits) and echo "node_modules/" >> .gitignore (the echo double checks that all of our git ignore dependencies were being referenced)
 -in restrucuturing our folders, we did not fix the imports for backend and frontend servers. This needed to be adjusted in the index.html file
+-using npm install @supabase/supabase-js used to make sure correct dependencies are there
+-testing challenges: finding the correct dependencies to import given we were testing the frontend... figuring out that userEvent is imported from it's own separate library
+- Because we were using browserRouter in front end we needed to also include it in our button test...lots of googling
 
 
 
