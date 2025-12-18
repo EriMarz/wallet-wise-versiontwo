@@ -1,9 +1,9 @@
 // import { Link } from "react-router-dom";
+import { useState, useEffect } from "react"; //not sure if we'll need useEffect yet - esm
 import { Button } from "../components/functional/Buttons";
 import { Plus } from "lucide-react";
 import { List } from "../components/layouts/List";
 import { Form } from "../components/functional/Forms";
-import { useState, useEffect } from "react"; //not sure if we'll need useEffect yet - esm
 //import{ Adventure } from "../../server/models/adventure.ts" //not sure why red sqiggle line of doom is here .... so i just added the interface below- esm
 
 interface Adventure {
@@ -60,7 +60,7 @@ export const Home = () => {
 
             {/* If the list is currently empty a message to show in its place */}
             {adventures.length === 0 && (
-              <p className="text-gray-500">No adventures found yet.</p>
+              <p className="text-gray-500">No adventures found. Start one!</p>
             )}
 
             {/* <List title="Trip to Paris" subtitle="4 members" amount={1300} />
