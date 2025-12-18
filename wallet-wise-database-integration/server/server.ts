@@ -11,7 +11,7 @@ const PORT = 3000; // 5432 this is the port in .env
 app.use(cors())
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
- const apiRouter = express.Router();
+ const apiRouter = express.Router(); 
  app.use("/api", apiRouter);
 
 // test server is working by creating an endpoint "test" that asks the db to return the first element. This should also work to test the connection even without any specific tables
@@ -58,7 +58,7 @@ app.post("/api/adventure", async (req: Request, res: Response) => {
 })
 
 //Create gets: for adventure page, adventure detail (expenses and balances sections)
-app.get("/api/adventure", async (req: Request, res: Response) => {
+app.get("/api/adventure/:id", async (req: Request, res: Response) => {
     try {
         const { name } = req.body;
         const result = await pool.query(

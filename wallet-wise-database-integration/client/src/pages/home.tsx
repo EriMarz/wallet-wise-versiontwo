@@ -8,7 +8,7 @@ import { useState, useEffect } from "react"; //not sure if we'll need useEffect 
 
 interface Adventure {
     id: number;
-    title: string;
+    name: string;
     description: string;
     cost: number
 }
@@ -16,21 +16,18 @@ interface Adventure {
 export const Home = () => {
   const [adventures, setAdventures] = useState<Adventure[]>([]);
   
-  
-  const fetchAdventures = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/adventures");
-      const data = await response.json();
-      setAdventures(data);
-    } catch (error) {
-      console.error("Error fetching adventures:", error);
-    }
-  }
-  
-  //not sure if im using useEffect correctly here or if it needs to be moved elsewhere - esm
   useEffect(() => {
-    fetchAdventures();
-  }, [setAdventures]); //An empty dependency array ensures this runs once on mount
+    async function fetchAdventures() {
+        try {
+          const response = await fetch("http://localhost:3000/api/adventures");
+          const data = await response.json();
+          setAdventures(data);
+        } catch (error) {
+          console.error("Error fetching adventures:", error);
+        }
+      }
+      fetchAdventures();
+  }, []);
   
   return (
     <div>
@@ -55,13 +52,16 @@ export const Home = () => {
             {adventures.map((adventure) => (
               <List
                 key={adventure.id}
-                title={adventure.title}//should this be adventure.name instead of title? Thinking name is in the adventure table and title might not be there... but also using title bc of the interface... or should I change the title to name in interface - esm
-                subtitle={adventure.description}
-                amount={adventure.cost}
+                title={adventure.name}//should this be adventure.name instead of title? Thinking name is in the adventure table and title might not be there... but also using title bc of the interface... or should I change the title to name in interface - esm
+                subtitle={adventure.description || "No description"} //placeholder text if no desc. is present
+                amount={adventure.cost || 0} //placeholder amount if no cost is present
               />
-            ))
-            
-            }
+            ))}
+
+            {/* If the list is currently empty a message to show in its place */}
+            {adventures.length === 0 && (
+              <p className="text-gray-500">No adventures found yet.</p>
+            )}
 
             {/* <List title="Trip to Paris" subtitle="4 members" amount={1300} />
             <List title="Trip to Tokyo" subtitle="3 members" amount={2000} />
