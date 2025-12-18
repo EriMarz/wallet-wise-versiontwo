@@ -1,22 +1,7 @@
-import { Pool } from 'pg';
-import dotenv from 'dotenv';
-import type { QueryResult } from "pg"; 
-//makes it so that we import only type declarations ... pg is a package imported from Node.js PostgresSQL client library
-import { createClient } from '@supabase/supabase-js'; // create a single supabase client for interacting with the db
-import { Database } from './database.types'
-// import { supabaseUrl, supabaseKey, supabaseAnonKey, supabasePword, PORT } from './.env';
-// from Arsy's debugging with AI
+import { Pool, QueryResult, QueryResultRow } from 'pg'; // pg is a package imported from Node.js PostgresSQL client library
 import dotenv from 'dotenv';
 import path from 'path';
-const supabaseKey = process.env.supabaseKey;
 
-// copy-pasta from https://supabase.com/docs/reference/javascript/typescript-support
-// const supabase = createClient<Database>(
-//   process.env.supabaseUrl,
-//   process.env.supabaseAnonKey
-// )
-
-// from Arsy's debugging with AI
 // Load .env file
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -56,26 +41,18 @@ async function testConnection(): Promise<void> {
 // Test the connection when the module loads
 testConnection();
 
-export default {
-  //could we use unknown instead of any to be more type safe?
-  query: (text: string, params?: any[]): Promise<QueryResult<any>> => {
-    console.log("executed query", text);
-    return pool.query(text, params);
-  },
-};
-
-export default pool;
-
-//// We export an object that contains a property called query,
+// We export an object that contains a property called query, 
 // which is a function that returns the invocation of pool.query() after logging the query
 // This will be required in the controllers to be the access point to the database
-// export default {
-//   // Query function with TypeScript types:
-//   // - text: SQL query string
-//   // - params: Optional array of parameters for prepared statements
-//   // - Returns: Promise that resolves to QueryResult (contains rows, rowCount, etc.)
-//   query: (text: string, params?: any[]): Promise<QueryResult<any>> => {
-//     // console.log("executed query", text);
-//     return pool.query(text, params);
-//   },
-// };
+// Type-safe query function
+export const query = async <T extends QueryResultRow = any>(
+  text: string, // - text: SQL query string
+  params?: unknown[] // - params: Optional array of parameters for prepared statements
+): Promise<QueryResult<T>> => { // Query function with TypeScript types:
+  console.log("executed query", text); // - Returns: Promise that resolves to QueryResult (contains rows, rowCount, etc.)
+  return pool.query<T>(text, params);
+};
+
+// Export the pool if needed elsewhere
+export { pool };
+export default query; // Optional: default export for the query function

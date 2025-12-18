@@ -25,10 +25,9 @@ export const Home = () => {
     } catch (error) {
       console.error("Error fetching adventures:", error);
     }
-    
-    
   }
   
+  //not sure if im using useEffect correctly here or if it needs to be moved elsewhere - esm
   useEffect(() => {
     fetchAdventures();
   }, [setAdventures]); //An empty dependency array ensures this runs once on mount
